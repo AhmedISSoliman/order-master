@@ -7,7 +7,7 @@
         <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
             <!-- Order ID Column -->
             <ng-container matColumnDef="OrderId">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Order ID </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> # </mat-header-cell>
                 <mat-cell *matCellDef="let order"> {{ order.OrderId }} </mat-cell>
             </ng-container>
             

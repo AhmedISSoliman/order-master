@@ -1,30 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiUrl } from '../../../../enviroments/api-url';
-import { ProductsListMViewModel } from '../../products/models/products-list.model';
 import { forkJoin, map } from 'rxjs';
-import { OrderProductModel, OrderViewModel } from '../models/order.model';
+import {  OrderProductModel, OrderViewModel } from '../models/order.model';
+import { SharedDataService } from './../../../shared/services/shared-data.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient,private sharedService:SharedDataService) { }
 
-  // Fetch Products
-  getProducts() {
-    return this.http.get<ProductsListMViewModel[]>(ApiUrl.products);
-  }
-
-  getOrders(){
+  getOrders() {
     return this.http.get<OrderViewModel[]>(ApiUrl.orders);
   }
 
-  getOrdersWithProductDetails(){
+  getOrdersWithProductDetails() {
     return forkJoin({
-      orders:this.getOrders(),
-      products:this.getProducts()
+      orders: this.getOrders(),
+      products: this.sharedService.getProducts()
     }).pipe(
       map(({orders,products})=>{
         return orders.map((order) => {
@@ -45,10 +40,14 @@ export class OrderService {
           };
         })
       })
-    )
+    );
   }
 
-  getOrderDetails(orderId:number){
+  getOrderDetails(orderId: number) {
     return this.http.get<OrderViewModel[]>(`${ApiUrl.orderDetails}${orderId}`);
+  }
+
+  getProductDetails(productId:number){
+    return  this.http.get(`${ApiUrl.products}?ProductId=${productId}`)
   }
 }

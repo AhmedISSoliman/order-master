@@ -17,8 +17,6 @@ export class OrderListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  hidden = false;
-
   constructor(private service: OrderService) {}
 
   ngOnInit(): void {
@@ -26,21 +24,16 @@ export class OrderListComponent implements OnInit {
   }
 
   getOrders(): void {
-    this.service.getOrdersWithProductDetails().subscribe((orders) => {
-      const enrichedOrders = orders.map((order) => ({
+    this.service.getOrdersWithProductDetails().subscribe(res=>{
+      const enrichedOrders = res.map((order)=>({
         ...order,
-        OrderDate: new Date(order.OrderDate), // Parse OrderDate
+        OrderDate: new Date(order.OrderDate),
         ProductsCount: order.Products.length,
       }));
       this.dataSource.data = enrichedOrders;
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
-  }
-
-  applyFilter(event: Event): void {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   calculateTotalPrice(products: any[]): number {

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ProductsListMViewModel } from '../models/products-list.model';
+import { ProductsListViewModel } from '../models/products-list.model';
 import { map } from 'rxjs';
 import { ApiUrl } from '../../../../enviroments/api-url';
 
@@ -8,29 +8,13 @@ import { ApiUrl } from '../../../../enviroments/api-url';
   providedIn: 'root'
 })
 export class ProductService {
-  
 
-  constructor(private http:HttpClient) { }
 
-  getProducts(){
-    return this.http.get<ProductsListMViewModel[]>(ApiUrl.products).pipe(map((products)=>products.map((product:any)=>({
-      ...product,
-      fewQuantities: product.AvailablePieces<10
-    }))))
+  constructor(private http: HttpClient) { }
 
-    // return this.http.get<ProductsListMViewModel[]>(ApiUrl.products).pipe(
-    //   map((products) => 
-    //     products.map((product) => ({
-    //       ...product,
-    //       fewQuantities: product.AvailablePieces
-    //     }))
-    //   )
-    // );
-  }
-
-  editProductQuantity(id:string, quantity: number) {
-    return this.http.patch<ProductsListMViewModel>(
-      `${ApiUrl.productQuantity}${id}` ,{AvailablePieces:quantity}
+  editProductQuantity(id: string, quantity: number) {
+    return this.http.patch<ProductsListViewModel>(
+      `${ApiUrl.productQuantity}${id}`, { AvailablePieces: quantity }
     );
   }
 }

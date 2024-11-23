@@ -9,4 +9,7 @@ export class ApiUrl {
   // Orders
   public static orders = environment.apiBaseUrl + 'orders';
   public static orderDetails = environment.apiBaseUrl + 'orders?OrderId=';
+  
+  //Users
+  public static users = environment.apiBaseUrl + 'users';
 }

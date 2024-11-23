@@ -1,29 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
-import { ProductsListMViewModel } from '../../models/products-list.model';
+import { ProductsListViewModel } from '../../models/products-list.model';
 import { MatDialogConfig } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
+import { SharedDataService } from '../../../../shared/services/shared-data.service';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss'
 })
 export class ProductListComponent implements OnInit {
-products:ProductsListMViewModel[];
+products:ProductsListViewModel[];
 editedQuantity: number;
 
-constructor(private service: ProductService, public dialog: MatDialog) {}
+constructor(private service: ProductService, public dialog: MatDialog,private sharedService:SharedDataService) {}
 ngOnInit(){
   this.getProducts();
 }
 
 getProducts(){
-  this.service.getProducts().subscribe(res=>{
+  this.sharedService.getProducts().subscribe(res=>{
     this.products=res;
   })
 }
 
-openEditQuantityModal(product: any,content:any): void {
+openEditQuantityModal(product: ProductsListViewModel,content:any): void {
   const dialogConfig = new MatDialogConfig();
   dialogConfig.disableClose = true;
   dialogConfig.autoFocus = true;
