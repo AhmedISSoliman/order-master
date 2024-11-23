@@ -1,0 +1,51 @@
+<section class="">
+    <h1 class="text-center fw-bold mb-4">Order Details</h1>
+    <ng-container *ngIf="orderDetails">
+        <div class="card mb-4">
+            <div class="card-header bg-secondary text-white">
+                <h4 class="my-2 fw-bold">Order Information</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Order ID:</strong> {{ orderDetails.OrderId }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Order Date:</strong> {{ orderDetails.OrderDate |date:'dd-MM-yyyy h:mm a' }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Payment Type:</strong> {{ orderDetails.PaymentType }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>User ID:</strong> {{ orderDetails.UserId }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header bg-secondary  text-white">
+                <h4 class="my-2 fw-bold">Products</h4>
+            </div>
+            <div class="card-body table-responsive">
+                <table mat-table [dataSource]="orderDetails.Products" class="table table-bordered table-striped">
+                    <!-- Product ID Column -->
+                    <ng-container matColumnDef="ProductId">
+                        <th mat-header-cell *matHeaderCellDef> Product ID </th>
+                        <td mat-cell *matCellDef="let product"> {{ product.ProductId }} </td>
+                    </ng-container>
+                    
+                    <!-- Quantity Column -->
+                    <ng-container matColumnDef="Quantity">
+                        <th mat-header-cell *matHeaderCellDef> Quantity </th>
+                        <td mat-cell *matCellDef="let product"> {{ product.Quantity }} </td>
+                    </ng-container>
+                    
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </div>
+        </div>
+    </ng-container>
+    </section>
+    

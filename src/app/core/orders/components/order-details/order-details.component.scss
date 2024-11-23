@@ -1,0 +1,24 @@
+ 
+  .card {
+    margin-bottom: 1rem;
+  }
+  
+  .table {
+    width: 100%;
+    border: 1px solid #ccc;
+  }
+  
+  @media (max-width: 768px) {
+    .table {
+      font-size: 0.9rem;
+    }
+  }
+  
+ :host ::ng-deep .table > thead,
+ :host ::ng-deep .table > tbody{
+    vertical-align: middle !important;
+  }
+ :host ::ng-deep .table > thead tr  th,
+ :host ::ng-deep .table > tbody tr td{
+    text-align: center !important;
+  }

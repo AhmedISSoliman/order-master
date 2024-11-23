@@ -1,0 +1,62 @@
+<h2>Orders</h2>
+<div class="card">
+<div class="card-body">
+
+    <div class="table-responsive">
+        <!-- Orders Table -->
+        <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+            <!-- Order ID Column -->
+            <ng-container matColumnDef="OrderId">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Order ID </mat-header-cell>
+                <mat-cell *matCellDef="let order"> {{ order.OrderId }} </mat-cell>
+            </ng-container>
+            
+            <!-- Order Date Column -->
+            <ng-container matColumnDef="OrderDate">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Order Date </mat-header-cell>
+                <mat-cell *matCellDef="let order"> {{ order.OrderDate | date: 'dd-MM-yyyy h:mm a' }} </mat-cell>
+            </ng-container>
+            
+            <!-- Products Count Column -->
+            <ng-container matColumnDef="ProductsCount">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Products Count </mat-header-cell>
+                <mat-cell *matCellDef="let order"> {{ order.ProductsCount }} </mat-cell>
+            </ng-container>
+            
+            <!-- Total Price Column -->
+            <ng-container matColumnDef="totalPrice">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Total Price </mat-header-cell>
+                <mat-cell *matCellDef="let order"> {{ order.totalPrice | currency }} </mat-cell>
+            </ng-container>
+            
+            <!-- Payment Method Column -->
+            <ng-container matColumnDef="paymentMethod">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Payment Method </mat-header-cell>
+                <mat-cell *matCellDef="let order">
+                    <span class="badge" [ngClass]="order.PaymentType === 'Cash' ? 'bg-primary' : 'bg-secondary'">
+                        {{ order.PaymentType }}
+                    </span>
+            </mat-cell>
+            </ng-container>
+            
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+                <mat-cell *matCellDef="let order">
+                    <button mat-raised-button color="primary" [routerLink]="'details/'+ order.OrderId">
+                        View Details
+                    </button>
+                </mat-cell>
+            </ng-container>
+            
+            <!-- Header Row and Data Rows -->
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
+    </div>
+    
+    <!-- Pagination -->
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
+    
+</div>
+</div>

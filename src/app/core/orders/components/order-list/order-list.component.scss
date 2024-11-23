@@ -1,0 +1,27 @@
+.container {
+    max-width: 100%;
+    padding: 0 1rem;
+  
+    .table-responsive {
+      overflow-x: auto;
+    }
+  
+    mat-form-field {
+      width: 100%;
+    }
+  
+    mat-table {
+      min-width: 600px; /* Ensures proper scrolling on smaller screens */
+      width: 100%;
+    }
+  
+    mat-header-cell,
+    mat-cell {
+      white-space: nowrap; /* Prevents wrapping of text */
+    }
+  
+    mat-paginator {
+      margin-top: 1rem;
+    }
+  }
+  
